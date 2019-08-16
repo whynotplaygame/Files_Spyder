@@ -83,10 +83,10 @@ class mainUI(QWidget, Ui_Form):
 
 		if self.isCanWork == True:
 			#fff = (targetDir,target,fileType,skipFiles)
-			getfiles = getAllLatentFiles(fileType,targetDir)
-			getfiles.start()
-			getfiles.sinOut.connect(self.stateLabel)
-			getfiles.sinFinish.connect(lambda:self.findfuc(target,fileType,skipFiles))
+			self.getfiles = getAllLatentFiles(fileType,targetDir)
+			self.getfiles.start()
+			self.getfiles.sinOut.connect(self.stateLabel)
+			self.getfiles.sinFinish.connect(lambda:self.findfuc(target,fileType,skipFiles))
 
 	
 	# 获得目标目录
@@ -142,25 +142,25 @@ class mainUI(QWidget, Ui_Form):
 			return 
 		if ft == '.csv':
 			print('查找csv文件')
-			find = findTargetFromCsvFiles(target,global_file_list,skip)
-			find.sinOutResult.connect(self.insertTable)
-			find.sinOutBlank.connect(self.stateLabel)
-			find.start()
+			self.find = findTargetFromCsvFiles(target,global_file_list,skip)
+			self.find.sinOutResult.connect(self.insertTable)
+			self.find.sinOutBlank.connect(self.stateLabel)
+			self.find.start()
 
 		elif ft == '.xls':
 			print('查找xls文件')
-			find = findTargetFromXlsFiles(target,global_file_list,skip)
-			find.start()
-			find.sinOutState.connect(self.stateLabel)
-			find.sinOutResult.connect(self.insertTable)
-			find.sinOutBlank.connect(self.stateLabel)
+			self.find = findTargetFromXlsFiles(target,global_file_list,skip)
+			self.find.start()
+			self.find.sinOutState.connect(self.stateLabel)
+			self.find.sinOutResult.connect(self.insertTable)
+			self.find.sinOutBlank.connect(self.stateLabel)
 		elif ft == '.gbc':
 			print('查找gbc文件')
-			find = findTargetFromGbcFiles(target,global_file_list,skip)
-			find.start()
-			find.sinOutState.connect(self.stateLabel)
-			find.sinOutResult.connect(self.insertTable)
-			find.sinOutBlank.connect(self.stateLabel)
+			self.find = findTargetFromGbcFiles(target,global_file_list,skip)
+			self.find.start()
+			self.find.sinOutState.connect(self.stateLabel)
+			self.find.sinOutResult.connect(self.insertTable)
+			self.find.sinOutBlank.connect(self.stateLabel)
 
 
 		#print('查找潜在文件列表结束')
