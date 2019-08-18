@@ -8,6 +8,9 @@ PyQt5项目，从大量csv,xls 和gbc（一种自定义类型）中搜索关键�
 
 注意在打包的时候，打包成功但无法执行，借鉴了 https://www.jianshu.com/p/7c0b3822187b  找打了问题。
 
+https://github.com/whynotplaygame/Files_Spyder/blob/master/image/start.png
+https://github.com/whynotplaygame/Files_Spyder/blob/master/image/working.png
+
 
 
 
