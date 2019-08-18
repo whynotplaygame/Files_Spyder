@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="pic">
+    <file>ui/背景2.jpg</file>
+    <file>ui/蜘蛛.ico</file>
+    <file>ui/title.png</file>
+    <file>ui/Seek-no-bg.png</file>
+  </qresource>
+</RCC>

@@ -6,24 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>901</width>
-    <height>718</height>
+    <width>851</width>
+    <height>695</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>240</x>
      <y>0</y>
      <width>321</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#0055ff;&quot;&gt;文本查询器工具 v1.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/pic/ui/title.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="wordWrap">
     <bool>false</bool>
@@ -32,7 +35,7 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>20</x>
      <y>50</y>
      <width>541</width>
      <height>141</height>
@@ -82,7 +85,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_target"/>
+       <widget class="QLineEdit" name="lineEdit_target">
+        <property name="placeholderText">
+         <string>必填！</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -128,12 +135,22 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_skip"/>
+       <widget class="QLineEdit" name="lineEdit_skip">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;跳过内容配置 之外的临时配置，需要,间隔。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;在 跳过内容配置 之外，临时跳过的文件名。用逗号间隔。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholderText">
+         <string>跳过内容配置之外的临时配置。逗号间隔。</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QToolButton" name="toolButton">
         <property name="text">
-         <string>配置</string>
+         <string>跳过内容配置</string>
         </property>
        </widget>
       </item>
@@ -144,11 +161,14 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>580</x>
      <y>50</y>
-     <width>261</width>
+     <width>251</width>
      <height>131</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>查找</string>
@@ -157,7 +177,7 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>20</x>
      <y>340</y>
      <width>72</width>
      <height>15</height>
@@ -170,11 +190,14 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>20</x>
      <y>240</y>
      <width>811</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;dddddd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
     <string>。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</string>
@@ -183,7 +206,7 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>20</x>
      <y>190</y>
      <width>821</width>
      <height>51</height>
@@ -196,7 +219,7 @@
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>10</x>
      <y>290</y>
      <width>831</width>
      <height>391</height>
@@ -224,6 +247,8 @@
    </column>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
