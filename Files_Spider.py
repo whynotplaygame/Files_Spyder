@@ -22,6 +22,7 @@ from PyQt5.QtCore import *
 import configparser
 import res_rc
 from PyQt5.QtGui import QPalette,QBrush,QPixmap
+import re
 
 
 
@@ -108,12 +109,13 @@ class mainUI(QWidget, Ui_Form):
 	# 获得目标目录
 	def getTagetDir(self):
 		if len(self.lineEdit_dir.text()) == 0:
-			#return r'E:\BaiduNetdiskDownload\sercher_final\csv_folder' # 测试配置
+			#return r'E:\All_Editions\自运\2019\19050901' # 测试配置
 			return '.'
 		return self.lineEdit_dir.text()
 
 	# 获得搜索目标
 	def getTarget(self):
+		#return '8207' # 测试配置
 		print('geting target func...')
 		if len(self.lineEdit_target.text()) == 0:
 			self.label_7.setText('目标必填！！！！')
@@ -330,15 +332,20 @@ class findTargetFromXlsFiles(QThread):
 
 	def run(self):
 
-		# 去self.filelist中的需要跳过的文件
-		cleanr = removeSKipFileFromOrigionalFileList(self.skipfiles,self.filelsit)
-		cleanedFileList = cleanr.do()
-
 		self.sinOutState.emit('开始检索Xls文件')
 		result = []
+		for file in self.filelsit:	
 
-		for file in cleanedFileList:
-		#for file in self.filelsit:
+			isConinue = False # 是否跳过此次循环标志
+			for skip in self.skipfiles:
+				skip_plus_head = r'\\'+ skip
+				skip_re = re.compile(skip_plus_head)
+				if skip_re.search(file):
+					isConinue = True
+
+			if isConinue == True:
+				continue
+
 			book = xlrd.open_workbook(file)
 			sheetsList= book.sheet_names()
 
@@ -410,14 +417,25 @@ class findTargetFromCsvFiles(QThread):
 		self.wait()
 
 	def run(self):
+		# 失败的方式，需要新的过滤算法
 		# 去self.filelist中的需要跳过的文件
-		cleanr = removeSKipFileFromOrigionalFileList(self.skipfiles,self.filelsit)
-		cleanedFileList = cleanr.do()
+		#cleanr = removeSKipFileFromOrigionalFileList(self.skipfiles,self.filelsit)
+		#cleanedFileList = cleanr.do()
 
 		self.sinOutState.emit('开始检索CSV文件')
 		result = []
-		for file in cleanedFileList:		
-		#for file in self.filelsit:
+		for file in self.filelsit:	
+
+			isConinue = False # 是否跳过此次循环标志
+			for skip in self.skipfiles:
+				skip_plus_head = r'\\'+ skip
+				skip_re = re.compile(skip_plus_head)
+				if skip_re.search(file):
+					isConinue = True
+
+			if isConinue == True:
+				continue
+
 			QApplication.processEvents()
 			csv_file = csv.reader(open(file, 'r'))
 			number = 1
@@ -455,15 +473,23 @@ class findTargetFromGbcFiles(QThread):
 		self.wait()
 
 	def run(self):
-		# 去self.filelist中的需要跳过的文件
-		cleanr = removeSKipFileFromOrigionalFileList(self.skipfiles,self.filelsit)
-		cleanedFileList = cleanr.do()
 
 		self.sinOutState.emit('开始检索gbc文件')
 
 		result = []
-		for file in cleanedFileList:
-		#for file in self.filelsit:
+		for file in self.filelsit:	
+
+			isConinue = False # 是否跳过此次循环标志
+		
+			for skip in self.skipfiles:
+				skip_plus_head = r'\\'+ skip
+				skip_re = re.compile(skip_plus_head)
+				if skip_re.search(file):
+					isConinue = True
+
+			if isConinue == True:
+				continue
+
 			with open(file,'r') as f:
 				number = 1
 				for line in f:
@@ -492,23 +518,6 @@ class checkFileThread(threading.Thread):
 		os.system(self.filepath)
 
 ###############################################
-
-# 功能为去掉原始列表中，以skipFiles中的文件名为的元素。
-class removeSKipFileFromOrigionalFileList():
-	def __init__(self,skipFiles,OrigionalFiles):
-		self.skipFiles = skipFiles
-		self.OrigionalFiles = OrigionalFiles
-		
-	def do(self):
-		for file in self.OrigionalFiles:
-			for skip in self.skipFiles:
-				if skip in file:
-					self.OrigionalFiles.remove(file)
-		return self.OrigionalFiles
-
-
-###############################################
-
 
 
 if __name__ == '__main__':
